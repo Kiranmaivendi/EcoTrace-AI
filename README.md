@@ -74,6 +74,13 @@ All protected routes use an HTTP-only JWT cookie and server-side role checks. In
 
 ## Deployment notes
 
-Deploy the frontend and API behind HTTPS, configure `FRONTEND_URL` to the exact frontend origin, and set `PUBLIC_APP_URL` to the public frontend origin. Set `COOKIE_SECURE=true` in production. Provision MongoDB and configure email and AI provider credentials as platform secrets.
+### Deploy to Render
+
+1. Push this repository to GitHub and open [Render Blueprint deployment](https://render.com/deploy?repo=https://github.com/Kiranmaivendi/EcoTrace-AI).
+2. Sign in to Render, review the `ecotrace-ai` web service, and provide `MONGODB_URI` from MongoDB Atlas as a secret. Atlas must allow connections from Render (for a quick prototype, configure Atlas network access accordingly; restrict it further for production).
+3. Render generates `JWT_SECRET` and supplies the public service URL automatically. After deployment finishes, use that `onrender.com` URL in your blog.
+4. To enable account verification and password reset, add `RESEND_API_KEY` and `EMAIL_FROM` in the Render service's environment settings. To enable AI answers and image screening, add `OPENAI_API_KEY` and choose a supported vision model if needed.
+
+The free Render service may sleep when idle and cold-start on the next visit. Uploaded images use local disk in this prototype and may not persist across redeploys; use object storage for production.
 
 Uploaded images are stored on the backend filesystem for this development implementation. Production deployments with ephemeral or multiple API instances should replace local uploads with durable object storage and configure backups/retention. Configure logging, monitoring, rate limits, and database backups before production use.

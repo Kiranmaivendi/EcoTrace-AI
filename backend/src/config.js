@@ -9,7 +9,7 @@ export const config = Object.freeze({
   mongoUri: process.env.MONGODB_URI || "",
   jwtSecret: process.env.JWT_SECRET || "",
   cookieSecure: process.env.COOKIE_SECURE === "true",
-  publicAppUrl: process.env.PUBLIC_APP_URL || process.env.FRONTEND_URL || "",
+  publicAppUrl: process.env.PUBLIC_APP_URL || process.env.FRONTEND_URL || process.env.RENDER_EXTERNAL_URL || "",
   resendApiKey: process.env.RESEND_API_KEY || "",
   emailFrom: process.env.EMAIL_FROM || "",
   openAiApiKey: process.env.OPENAI_API_KEY || "",

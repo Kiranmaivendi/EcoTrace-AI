@@ -15,6 +15,7 @@ import aiRoutes from "./routes/ai.js";
 import adminRoutes from "./routes/admin.js";
 import { errorResponse } from "./utils/errors.js";
 import { uploadsDirectory } from "./middleware/upload.js";
+import { config } from "./config.js";
 
 const app = express();
 
@@ -22,11 +23,10 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(cors({
   origin(origin, callback) {
     if (!origin) return callback(null, true);
-    if (process.env.NODE_ENV === "production" && /^https:\/\//.test(origin)) {
-      return callback(null, true);
-    }
     const allowedOrigins = new Set([
       process.env.FRONTEND_URL,
+      process.env.RENDER_EXTERNAL_URL,
+      config.publicAppUrl,
       "http://127.0.0.1:5173",
       "http://localhost:5173",
       "http://192.168.29.155:5173",
