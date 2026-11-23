@@ -1,0 +1,20 @@
+{
+  "name": "ecotrace-ai",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail --names web,api \"npm run dev --workspace @ecotrace/frontend\" \"npm run dev --workspace @ecotrace/backend\"",
+    "build": "npm run build --workspace @ecotrace/frontend",
+    "start": "node backend/src/server.js",
+    "lint": "oxlint frontend/src backend/src",
+    "test": "npm run test --workspace @ecotrace/backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "oxlint": "^1.90.0"
+  }
+}
